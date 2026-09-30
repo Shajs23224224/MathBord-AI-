@@ -6,7 +6,7 @@ plugins {
 }
 
 kotlin {
-    android {
+    androidLibrary {
         namespace = "com.mathbord.ai.shared"
         compileSdk = 37
         minSdk = 26
@@ -19,6 +19,12 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {}
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+        }
+        jvmTest.dependencies {
+            implementation(kotlin("test"))
+        }
     }
 
     jvmToolchain(17)
