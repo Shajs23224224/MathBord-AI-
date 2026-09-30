@@ -3,7 +3,7 @@
 | Phase | Scope | Status |
 |---|---|---|
 | 0 | Foundation | In progress |
-| 1 | Android Application Foundation | In progress — Part 2 implemented |
+| 1 | Android Application Foundation | In progress — Part 3 implemented |
 | 2 | Whiteboard engine | Planned |
 | 3 | Local persistence | Planned |
 | 4 | Math sessions | Planned |
