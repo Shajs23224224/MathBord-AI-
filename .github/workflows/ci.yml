@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   android:
-    name: Android build, lint and unit tests
+    name: Android build, lint, tests and release artifacts
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,11 +32,25 @@ jobs:
         run: bash scripts/verify-architecture.sh
       - name: Build, lint and test
         run: ./gradlew :shared:desktopTest :android:app:lintDebug :android:app:testDebugUnitTest :android:app:assembleDebug
+      - name: Build Android release artifacts
+        run: ./gradlew :android:app:assembleRelease :android:app:bundleRelease
+      - name: Verify Android release artifacts
+        run: bash scripts/verify-android-release.sh
       - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
           name: mathbord-debug-apk
           path: android/app/build/outputs/apk/debug/*.apk
+      - name: Upload release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: mathbord-release-apk
+          path: android/app/build/outputs/apk/release/*.apk
+      - name: Upload release AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: mathbord-release-aab
+          path: android/app/build/outputs/bundle/release/*.aab
 
   android-instrumented:
     name: Android instrumented tests
@@ -61,7 +75,7 @@ jobs:
           script: ./gradlew :android:app:connectedDebugAndroidTest
 
   desktop:
-    name: Windows Desktop build and package
+    name: Windows Desktop build, package and verify
     runs-on: windows-latest
     steps:
       - name: Checkout
@@ -79,11 +93,22 @@ jobs:
       - name: Package Windows EXE
         shell: pwsh
         run: ./gradlew :desktopApp:packageExe
+      - name: Package Windows MSI
+        shell: pwsh
+        run: ./gradlew :desktopApp:packageMsi
+      - name: Verify Windows artifacts
+        shell: pwsh
+        run: ./scripts/verify-windows-artifacts.ps1
       - name: Upload Windows EXE
         uses: actions/upload-artifact@v4
         with:
           name: mathbord-windows-exe
           path: desktopApp/build/compose/binaries/**/*.exe
+      - name: Upload Windows MSI
+        uses: actions/upload-artifact@v4
+        with:
+          name: mathbord-windows-msi
+          path: desktopApp/build/compose/binaries/**/*.msi
 
   performance:
     name: Android startup benchmark
