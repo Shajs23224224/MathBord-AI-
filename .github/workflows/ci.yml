@@ -31,9 +31,9 @@ jobs:
       - name: Architecture checks
         run: bash scripts/verify-architecture.sh
       - name: Build, lint and test
-        run: ./gradlew.bat :shared:desktopTest :android:app:lintDebug :android:app:testDebugUnitTest :android:app:assembleDebug
+        run: ./gradlew :shared:desktopTest :android:app:lintDebug :android:app:testDebugUnitTest :android:app:assembleDebug
       - name: Build Android release artifacts
-        run: ./gradlew.bat :android:app:assembleRelease :android:app:bundleRelease
+        run: ./gradlew :android:app:assembleRelease :android:app:bundleRelease
       - name: Verify Android release artifacts
         run: bash scripts/verify-android-release.sh
       - name: Upload debug APK
@@ -72,7 +72,7 @@ jobs:
           target: google_apis
           arch: x86_64
           profile: pixel_6
-          script: ./gradlew.bat :android:app:connectedDebugAndroidTest
+          script: ./gradlew :android:app:connectedDebugAndroidTest
 
   desktop:
     name: Windows Desktop build, package and verify
@@ -131,4 +131,4 @@ jobs:
           target: google_apis
           arch: x86_64
           profile: pixel_6
-          script: ./gradlew.bat :android:macrobenchmark:connectedCheck
+          script: ./gradlew :android:macrobenchmark:connectedCheck
