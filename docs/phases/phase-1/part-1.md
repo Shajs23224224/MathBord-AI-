@@ -397,7 +397,7 @@ android/app/src/main/java/com/mathbord/ai/ui/*
 |---|---|---|
 | Repository | Android tree exists | Implemented |
 | Gradle | Module and catalog exist | Implemented |
-| Wrapper | Committed and reproducible | Pending |
+| Wrapper | Scripts, JAR and pinned distribution/checksum | Implemented |
 | Manifest | Launcher Activity exists | Implemented |
 | Compose | Application root exists | Implemented |
 | Navigation | Five shell destinations exist | Implemented |
@@ -455,7 +455,7 @@ Acceptance checklist:
 - [x] Typed UI/error/result contracts exist.
 - [x] Logging abstraction exists.
 - [x] Repository hygiene exists.
-- [ ] Gradle wrapper committed.
+- [x] Gradle wrapper committed.
 - [ ] Fresh-checkout build verified.
 - [ ] CI build verified.
 - [ ] Instrumented navigation test verified.
@@ -506,3 +506,11 @@ Before moving to Part 2, the following must be answered with evidence:
 6. Can release builds suppress debug logging?
 7. Are there zero production secrets in the Android source tree?
 8. Is the application entry point free of domain logic?
+
+## P1.1 completion record
+
+- Gradle Wrapper scripts committed: `gradlew` and `gradlew.bat`.
+- Wrapper JAR committed at `gradle/wrapper/gradle-wrapper.jar`.
+- Wrapper distribution pinned to `gradle-9.6-bin.zip`.
+- Gradle distribution SHA-256 pinned in `gradle-wrapper.properties`.
+- Fresh-checkout execution remains environment-dependent until Part 4 CI executes the first automated build.
