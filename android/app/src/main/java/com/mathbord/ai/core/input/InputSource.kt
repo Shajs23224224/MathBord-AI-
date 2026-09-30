@@ -1,13 +1,9 @@
 package com.mathbord.ai.core.input
 
 import androidx.compose.ui.input.pointer.PointerType
+import com.mathbord.ai.shared.InputSource as SharedInputSource
 
-enum class InputSource {
-    TOUCH,
-    STYLUS,
-    MOUSE,
-    OTHER
-}
+typealias InputSource = SharedInputSource
 
 fun PointerType.toInputSource(): InputSource = when (this) {
     PointerType.Touch -> InputSource.TOUCH
