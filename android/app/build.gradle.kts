@@ -54,4 +54,6 @@ dependencies {
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 }
-kotlin { compilerOptions { jvmToolchain(17) } }
+kotlin {
+    compilerOptions { jvmToolchain(17) }
+}
