@@ -32,7 +32,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Exe, TargetFormat.Msi)
             packageName = "MathBordAI"
-            packageVersion = "0.1.0"
+            packageVersion = providers.gradleProperty("mathbordVersion").get()
             description = "MathBord AI — interactive mathematics learning"
             vendor = "MathBord AI"
             windows {
