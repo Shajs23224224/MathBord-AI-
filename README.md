@@ -2,6 +2,11 @@
 
 MathBord AI is an interactive mathematics learning application centered on an AI-powered mathematical whiteboard.
 
+## Product targets
+
+- Android — primary: APK/AAB.
+- Windows Desktop — secondary: self-contained EXE/MSI.
+
 ## Core features
 
 - AI Whiteboard
@@ -11,13 +16,11 @@ MathBord AI is an interactive mathematics learning application centered on an AI
 - Photo to editable whiteboard
 - Step-by-step solutions
 
-## Current architecture work
+## Architecture work
 
-Phase 0 defines the architecture and roadmap.
-
-Phase 1 is the Android Application Foundation and is divided into five implementation parts. Part 1 establishes the Gradle project, Compose shell, typed navigation, base UI contracts, dependency container and theme.
+Phase 1 establishes the multiplatform application foundation. Shared KMP code holds platform-neutral domain and infrastructure contracts, while Android and Desktop retain platform-specific entry points and services.
 
 See:
 - docs/architecture.md
+- docs/platforms.md
 - docs/phases/phase-1/README.md
-- docs/phases/phase-1/part-1.md

@@ -1,56 +1,32 @@
 # Phase 1 — Part 3: Cross-Cutting Contracts and Multiplatform Architecture
 
-## Status
+## Multiplatform status
 
-Implementation complete at source level; CI/build verification is F1.P4.
+Android is primary (APK/AAB). Windows Desktop is secondary (EXE/MSI).
 
-## Multiplatform boundaries
+Shared KMP contracts now cover identifiers, environment, clock, lifecycle, connectivity, analytics, feature flags, logging, permissions, clipboard, sharing, capabilities, Board documents, Board serialization, Math Engine and session boundaries.
 
-Android is the primary client and produces APK/AAB.
-Windows Desktop is the secondary client and produces EXE/MSI.
+## Important build correction
 
-The shared KMP layer now contains platform-neutral contracts for:
-- Math Engine.
-- Board documents and ink strokes.
-- stable IDs.
-- sessions.
-- storage.
-- permissions.
-- clipboard and sharing.
-- connectivity.
-- analytics.
-- feature flags.
-- clock/time.
-- logging.
-- platform capabilities.
-- security policy.
+Kotlin 2.4.20's documented KMP compatibility range allows AGP through 9.3.1, so the project uses AGP 9.3.1 rather than 9.4.0. Gradle 9.6 remains within the supported KMP/Gradle range. citeturn502508search4
 
-Platform-specific implementations remain in androidMain/desktopMain or the platform entry-point modules.
+## Platform separation
 
-## Shared Board model
+commonMain contains no Android, Swing/AWT or Windows UI imports. Android-only APIs stay in androidMain/androidApp; Desktop-only APIs stay in desktopMain/desktopApp.
 
-The shared board model now includes BoardDocument, InkStroke, StrokePoint and InkTool. This makes the mathematical/interaction model portable before the actual rendering engine is implemented in Phase 2.
+## Board portability
 
-## Android isolation
+BoardDocument, InkStroke, StrokePoint, InkTool and BoardSerializer are platform-neutral. The future Phase 2 rendering engine will translate platform pointer events into the shared input model.
 
-Android pointer APIs are normalized at the Android UI boundary. Android-only CameraX, lifecycle, WorkManager and permission APIs must not enter commonMain.
+## UI strategy
 
-## Desktop isolation
-
-Desktop UI and packaging remain in desktopApp. Windows-specific packaging is configured through Compose Multiplatform native distributions.
-
-## Build compatibility correction
-
-Kotlin Multiplatform 2.4.20 is compatible with AGP through 9.3.1, so the project now pins AGP to 9.3.1 instead of 9.4.0. Gradle 9.6 remains within the supported KMP range. This correction is necessary for a valid multiplatform build.
+The current Android and Desktop shell entry points remain separate. Shared UI is not forced prematurely; shared domain/data contracts are established first so Android-specific UX can remain optimized for the primary platform.
 
 ## Acceptance
 
-- [x] Android and Windows are first-class targets.
-- [x] Shared KMP source sets exist.
-- [x] Shared contracts do not depend on Android or desktop UI.
-- [x] Board core model is shared.
-- [x] Platform services are represented by ports.
-- [x] Build plugin compatibility corrected for Kotlin 2.4.20.
-- [ ] End-to-end Android build.
-- [ ] End-to-end Windows package.
-- [ ] Cross-platform CI verification.
+- [x] Android and Windows targets defined.
+- [x] Shared KMP boundaries exist.
+- [x] Shared lifecycle/storage/serialization/board contracts exist.
+- [x] AGP/KMP compatibility corrected.
+- [ ] End-to-end Android build verification.
+- [ ] End-to-end Windows packaging verification.

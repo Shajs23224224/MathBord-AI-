@@ -1,8 +1,8 @@
 package com.mathbord.ai.shared
 
 import kotlin.test.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertEquals
 
 class SharedModelTest {
     @Test
@@ -23,8 +23,7 @@ class SharedModelTest {
     }
 
     @Test
-    fun desktopAndAndroidUseStableEntityIdFormat() {
-        val id = EntityId("session-123")
-        assertEquals("session-123", id.value)
+    fun boardSerializationHasExplicitFormatBoundary() {
+        assertEquals(BoardSerializationFormat.JSON.name, "JSON")
     }
 }

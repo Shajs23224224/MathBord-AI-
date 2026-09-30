@@ -22,7 +22,7 @@ kotlin {
         commonTest.dependencies {
             implementation(kotlin("test"))
         }
-        jvmTest.dependencies {
+        desktopTest.dependencies {
             implementation(kotlin("test"))
         }
     }

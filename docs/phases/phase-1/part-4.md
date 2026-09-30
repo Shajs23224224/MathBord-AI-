@@ -2,60 +2,46 @@
 
 ## Status
 
-Implementation in progress. The repository now contains the complete initial verification stack; successful execution is the remaining gate.
+Verification stack implemented; CI execution is the active gate.
 
-## 1. Test layers
+## Test layers
 
-Shared commonTest validates platform-neutral invariants.
-Android host tests validate ViewModel/SavedState behavior.
-Android instrumented tests validate shell navigation.
-Desktop JVM tests validate the desktop platform boundary.
-Macrobenchmark validates Android cold startup.
+- Shared KMP: common invariants executed through the desktop JVM test target.
+- Android: ViewModel/SavedState host tests.
+- Android instrumented: Compose navigation on an emulator.
+- Windows: JVM tests, Desktop Kotlin compilation and native EXE packaging.
+- Android performance: separate Macrobenchmark module with cold-start measurement.
 
-## 2. Static analysis
+## Static analysis
 
-Android Lint is a required build gate.
-A custom architecture script rejects platform-specific imports in commonMain and scans for common credential patterns.
-Kotlin compiler failures are treated as hard CI failures.
+- Android Lint.
+- Kotlin compiler errors.
+- commonMain platform-boundary scan.
+- credential-pattern scan.
 
-## 3. Performance
+## Performance
 
-AndroidX Macrobenchmark 1.5.0 is configured in a separate benchmark module.
-The target Android app is profileable and includes Profile Installer 1.4.1.
-StartupTimingMetric measures cold start over five iterations.
-The benchmark job is manually triggerable initially because emulator performance is variable.
+AndroidX Macrobenchmark 1.5.0 is configured as a separate test module. The target app is profileable and contains Profile Installer 1.4.1. Cold startup is measured with StartupTimingMetric over five iterations. Benchmark CI is manual-dispatch initially, avoiding noisy performance gates on every commit.
 
-## 4. Android CI
+## CI matrix
 
-Normal CI executes architecture checks, shared tests, Android Lint, Android unit tests and Debug APK assembly.
-An emulator job executes Compose navigation instrumentation.
+| Target | Runner | Verification | Artifact |
+|---|---|---|---|
+| Android | Ubuntu | Lint + unit + instrumented | Debug APK |
+| Shared/JVM | Ubuntu/Windows | shared desktop tests | — |
+| Windows | Windows | JVM compile + EXE package | Windows EXE |
+| Android performance | Ubuntu | Macrobenchmark | benchmark output |
 
-## 5. Windows CI
+## Acceptance
 
-Windows CI executes shared tests, Desktop JVM tests, Desktop Kotlin compilation and Windows EXE packaging.
-The EXE is uploaded as a workflow artifact.
-MSI packaging remains configured and will be published after successful EXE validation.
-
-## 6. Quality policy
-
-No arbitrary performance threshold is imposed before a controlled baseline exists.
-No production credentials are available to CI.
-No AI/network functionality is required for this phase.
-
-## 7. Acceptance criteria
-
-- [x] Shared unit-test baseline exists.
-- [x] Android ViewModel unit test exists.
-- [x] Android Compose navigation test exists.
-- [x] Android Lint is configured as a CI gate.
-- [x] Architecture/security pattern checks exist.
-- [x] Windows JVM test/compile job exists.
-- [x] Windows EXE packaging job exists.
-- [x] Macrobenchmark module exists.
-- [x] Cold-start benchmark exists.
-- [ ] CI Android build passes.
-- [ ] CI Android instrumentation passes.
-- [ ] CI Windows build/package passes.
-- [ ] Macrobenchmark execution passes.
-- [ ] Performance baseline recorded.
-- [ ] Phase 1 final audit in Part 5.
+- [x] Unit tests exist.
+- [x] Instrumented test exists.
+- [x] Windows build/package job exists.
+- [x] Macrobenchmark exists.
+- [x] Static architecture scan exists.
+- [x] CI workflow is configured.
+- [ ] Android CI run succeeds.
+- [ ] Android instrumented CI succeeds.
+- [ ] Windows EXE artifact verified.
+- [ ] Macrobenchmark execution verified.
+- [ ] Baseline recorded.
