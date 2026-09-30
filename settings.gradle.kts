@@ -5,6 +5,7 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 }
 
@@ -17,4 +18,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "MathBordAI"
+include(":shared")
 include(":android:app")
+include(":desktopApp")
