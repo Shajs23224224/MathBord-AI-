@@ -43,9 +43,8 @@ Implemented:
 - ShellEvent
 - ShellEffect
 - lifecycle-aware collectAsStateWithLifecycle()
-- state mutation via ViewModel only
-
-The state is intentionally small while feature logic is deferred.
+- ViewModel-owned state mutation
+- SavedStateHandle-backed small state
 
 ## 2. Process recreation and SavedStateHandle
 
@@ -69,9 +68,10 @@ Implemented:
 - centralized graph;
 - singleTop navigation;
 - saveState/restoreState for top-level destinations;
-- system back from non-home destinations;
+- explicit system back behavior from non-home destinations;
 - Escape and Alt+Left keyboard back behavior;
-- responsive navigation surface.
+- responsive navigation surface;
+- layout fills the available window.
 
 Parameterized routes remain compatible with future forms such as board/{sessionId}.
 
@@ -90,9 +90,10 @@ Behavior:
 - Compact: bottom NavigationBar.
 - Medium: NavigationRail without permanently visible labels.
 - Expanded: NavigationRail with labels.
-- Main content is width-constrained to avoid excessive reading width on large displays.
+- Main content uses a shared maximum reading width.
+- Navigation and content expand to the available window.
 
-Width classification is separated into a pure function for future tests.
+Width classification is separated into a pure function for future unit testing.
 
 ## 5. Design system foundation
 
@@ -100,19 +101,17 @@ Implemented:
 
 - MathBordSpacing;
 - MathBordDimensions;
-- reusable content surface;
-- reusable async state presentation;
+- reusable content surface with max content width;
+- reusable loading/empty/content/error presentation;
 - centralized Material 3 theme;
 - reusable shell placeholder structure.
-
-Tokens are kept outside feature screens so later components can use consistent spacing and sizing.
 
 ## 6. Accessibility foundation
 
 Implemented:
 
 - semantic heading on screen titles;
-- accessible labels on navigation items;
+- accessible labels through standard navigation items;
 - icons are not redundantly announced when the parent navigation item has the label;
 - text uses scalable Material typography rather than fixed-height containers;
 - standard Material interactive controls are used.
@@ -131,7 +130,7 @@ Board-specific shortcuts such as Ctrl+Z and Ctrl+Y remain reserved for the futur
 
 ## 8. Stylus/finger input boundary
 
-A stable source vocabulary is now available:
+A stable source vocabulary is available:
 
 ~~~text
 TOUCH
@@ -140,7 +139,7 @@ MOUSE
 OTHER
 ~~~
 
-Pointer types are normalized at the UI boundary through `PointerType.toInputSource()`.
+Pointer types are normalized at the UI boundary through PointerType.toInputSource().
 
 This is not the drawing engine. The future Board module can classify input source without leaking raw pointer APIs into domain logic.
 
@@ -152,8 +151,6 @@ AsyncStateView establishes a reusable presentation boundary for:
 - empty;
 - content;
 - error with optional retry.
-
-Later repositories can map results into this presentation model without each screen inventing a new visual state system.
 
 ## 10. Acceptance criteria
 
@@ -174,14 +171,4 @@ Later repositories can map results into this presentation model without each scr
 
 ## 11. Explicit exclusions
 
-Part 2 does not introduce concrete:
-
-- AI providers;
-- network clients;
-- Room databases;
-- synchronization engines;
-- authentication services;
-- mathematical feature logic;
-- canvas/stroke processing.
-
-These remain outside this part.
+Part 2 does not introduce concrete AI providers, network clients, Room databases, synchronization engines, authentication services, mathematical feature logic or canvas/stroke processing.
