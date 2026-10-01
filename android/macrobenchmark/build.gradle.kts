@@ -14,6 +14,6 @@ android {
 }
 
 dependencies {
-    androidTestImplementation(libs.androidx.benchmark.macro.junit4)
-    androidTestImplementation(libs.androidx.test.ext.junit)
+    "androidTestImplementation"(libs.androidx.benchmark.macro.junit4)
+    "androidTestImplementation"(libs.androidx.test.ext.junit)
 }
