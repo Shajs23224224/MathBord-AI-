@@ -35,7 +35,6 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.input.pointer.PointerType
-import androidx.compose.ui.input.pointer.consume
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.dp
@@ -52,6 +51,7 @@ fun BoardScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val tool = uiState.selectedTool
+    val boardColorScheme = MaterialTheme.colorScheme
 
     Column(modifier = Modifier.fillMaxSize()) {
         BoardToolbar(
@@ -145,8 +145,8 @@ fun BoardScreen(
                             )
                         }
                 ) {
-                    val penColor = MaterialTheme.colorScheme.onSurface
-                    val highlighterColor = MaterialTheme.colorScheme.primary
+                    val penColor = boardColorScheme.onSurface
+                    val highlighterColor = boardColorScheme.primary
 
                     uiState.document.strokes.forEach { stroke ->
                         drawStroke(
