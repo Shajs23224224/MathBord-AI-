@@ -4,7 +4,7 @@
 |---|---|---|
 | 0 | Foundation | In progress |
 | 1 | Android Application Foundation | In progress — P4 verification stack implemented |
-| 2 | Whiteboard engine | Planned |
+| 2 | Whiteboard engine | In progress — interactive engine implemented; CI validation pending |
 | 3 | Local persistence | Planned |
 | 4 | Math sessions | Planned |
 | 5 | Mathematical representation | Planned |
