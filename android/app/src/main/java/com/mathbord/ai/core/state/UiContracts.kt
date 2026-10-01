@@ -1,7 +1,7 @@
 package com.mathbord.ai.core.state
 
-sealed interface UiEvent
-sealed interface UiEffect
+interface UiEvent
+interface UiEffect
 
 data class AsyncUiState<T>(
     val data: T? = null,
