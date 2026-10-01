@@ -18,7 +18,7 @@ MathBord AI is an interactive mathematics learning application centered on an AI
 
 ## Architecture work
 
-Phase 1 establishes the multiplatform application foundation. Shared KMP code holds platform-neutral domain and infrastructure contracts, while Android and Desktop retain platform-specific entry points and services.
+Phase 1 establishes the multiplatform application foundation. Phase 2 implements the interactive whiteboard engine and Android canvas. Shared KMP code holds platform-neutral domain and infrastructure contracts, while Android and Desktop retain platform-specific entry points and services.
 
 See:
 - docs/architecture.md
