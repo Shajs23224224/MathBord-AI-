@@ -14,7 +14,13 @@ class MainActivityNavigationTest {
     @Test
     fun boardDestinationIsReachable() {
         rule.onNodeWithText("Pizarra").assertIsDisplayed().performClick()
-        rule.onNodeWithText("La superficie interactiva se implementará en la Fase 2.")
+        rule.onNodeWithText("Escribe una operación matemática aquí")
+            .assertIsDisplayed()
+        rule.onNodeWithText("Lápiz")
+            .assertIsDisplayed()
+        rule.onNodeWithText("Resaltador")
+            .assertIsDisplayed()
+        rule.onNodeWithText("Borrador")
             .assertIsDisplayed()
     }
 }
