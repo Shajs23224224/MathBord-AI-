@@ -6,7 +6,7 @@ plugins {
 }
 
 kotlin {
-    androidLibrary {
+    android {
         namespace = "com.mathbord.ai.shared"
         compileSdk = 37
         minSdk = 26
@@ -22,8 +22,10 @@ kotlin {
         commonTest.dependencies {
             implementation(kotlin("test"))
         }
-        desktopTest.dependencies {
-            implementation(kotlin("test"))
+        named("desktopTest") {
+            dependencies {
+                implementation(kotlin("test"))
+            }
         }
     }
 
